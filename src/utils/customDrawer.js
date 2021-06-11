@@ -1,8 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
-import {Colors} from './tools';
+import {Colors, LogoText} from './tools';
 
 const SideDrawerCustom = props => {
   const mainOptions = [
@@ -14,7 +14,7 @@ const SideDrawerCustom = props => {
   return (
     <DrawerContentScrollView {...props}>
       <View>
-        <Text>Redwire</Text>
+        <LogoText style={styles.logoTextStyle} />
       </View>
       {mainOptions.map(item => (
         <Button
@@ -27,7 +27,7 @@ const SideDrawerCustom = props => {
       ))}
       <Button
         title="Logout"
-        onPress={() => alert('Logout')}
+        onPress={() => null}
         buttonStyle={styles.drawerButton}
         titleStyle={styles.titleStyle}
       />
@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     width: '100%',
+  },
+  logoTextStyle: {
+    fontSize: 40,
+    textAlign: 'center',
   },
 });
 
