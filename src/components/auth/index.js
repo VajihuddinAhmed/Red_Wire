@@ -2,27 +2,47 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-//import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {registerUser, clearAuthError} from '../../store/actions';
 import {Input, Button} from 'react-native-elements';
 import {Colors, LogoText, ShowToast} from '../../utils/tools';
+import {useFocusEffect} from '@react-navigation/native';
 
 const AuthScreen = () => {
+  const dispatch = useDispatch();
+  const error = useSelector(state => state.auth.error);
   const [formType, setFormType] = useState(true);
   const [secureEntry, setSecureEntry] = useState(true);
+  const [loading, setLoading] = useState(false);
+
   const submit = values => {
-    alert(values);
+    setLoading(true);
+    if (formType) {
+      dispatch(registerUser(values));
+    } else {
+      return null;
+    }
   };
 
   useEffect(() => {
-    ShowToast('success', 'login successful', 'displaying account');
-  }, []);
+    if (error) {
+      ShowToast('error', 'Sorry', error);
+      setLoading(false);
+    }
+  }, [error]);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => dispatch(clearAuthError());
+    }, []),
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.container}>
         <LogoText />
         <Formik
-          initialValues={{email: 'vajihahmed@gmail.com', password: '098765'}}
+          initialValues={{email: '', password: ''}}
           validationSchema={Yup.object({
             email: Yup.string()
               .email('Invalid email address')
@@ -54,6 +74,10 @@ const AuthScreen = () => {
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 value={values.email}
+                renderErrorMessage={errors.email && touched.email}
+                errorMessage={errors.email}
+                errorStyle={styles.errorStyle}
+                autoCapitalize="none"
               />
               <Input
                 placeholder="Password"
@@ -74,11 +98,16 @@ const AuthScreen = () => {
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 value={values.password}
+                renderErrorMessage={errors.password && touched.password}
+                errorMessage={errors.password}
+                errorStyle={styles.errorStyle}
               />
               <Button
                 title={formType ? 'Register' : 'Login'}
                 buttonStyle={styles.buttonStyle}
                 titleStyle={styles.titleStyle}
+                onPress={handleSubmit}
+                loading={loading}
               />
               <Button
                 type="clear"
@@ -127,6 +156,9 @@ const styles = StyleSheet.create({
   secondTitleStyle: {
     width: '100%',
     color: Colors.white,
+  },
+  errorStyle: {
+    color: Colors.black,
   },
 });
 
