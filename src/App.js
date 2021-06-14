@@ -46,7 +46,11 @@ const App = props => {
           </>
         ) : (
           <>
-            <Stack.Screen name="AuthScreen" component={AuthScreen} />
+            <Stack.Screen
+              name="AuthScreen"
+              component={AuthScreen}
+              options={{headerShown: false}}
+            />
           </>
         )}
       </Stack.Navigator>
