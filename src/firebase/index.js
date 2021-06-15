@@ -18,4 +18,6 @@ const DB = firebase.firestore();
 
 const usersCollection = DB.collection('users');
 
-export {firebase, usersCollection};
+const articlesCollection = DB.collection('articles');
+
+export {firebase, usersCollection, articlesCollection};

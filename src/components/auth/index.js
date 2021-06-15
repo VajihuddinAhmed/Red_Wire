@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
-import {registerUser, clearAuthError} from '../../store/actions';
+import {registerUser, clearAuthError, loginUser} from '../../store/actions';
 import {Input, Button} from 'react-native-elements';
 import {Colors, LogoText, ShowToast} from '../../utils/tools';
 import {useFocusEffect} from '@react-navigation/native';
@@ -20,7 +21,7 @@ const AuthScreen = () => {
     if (formType) {
       dispatch(registerUser(values));
     } else {
-      return null;
+      dispatch(loginUser(values));
     }
   };
 

@@ -42,6 +42,7 @@ export const HomeStack = () => (
     initialRouteName="Home_screen"
     screenOptions={{
       ...screenOptions,
+      headerBackTitleVisible: false,
     }}>
     <Stack.Screen
       name="Home_screen"
