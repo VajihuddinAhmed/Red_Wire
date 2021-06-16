@@ -112,9 +112,7 @@ const AuthScreen = () => {
               />
               <Button
                 type="clear"
-                title={`${
-                  !formType ? 'Already Registered?' : 'Need to Sign In'
-                }`}
+                title={`${!formType ? 'Already Registered?' : 'Sign In'}`}
                 buttonStyle={styles.secondButtonStyle}
                 titleStyle={styles.secondTitleStyle}
                 onPress={() => setFormType(!formType)}
