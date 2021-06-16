@@ -20,4 +20,6 @@ const usersCollection = DB.collection('users');
 
 const articlesCollection = DB.collection('articles');
 
-export {firebase, usersCollection, articlesCollection};
+const videosCollection = DB.collection('videos');
+
+export {firebase, usersCollection, articlesCollection, videosCollection};
