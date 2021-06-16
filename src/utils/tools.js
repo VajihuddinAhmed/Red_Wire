@@ -39,7 +39,7 @@ export const ShowToast = (type, text1, text2) => {
       break;
     case 'error':
       Toast.show({
-        type: 'success',
+        type: 'error',
         text1,
         text2,
         position: 'bottom',

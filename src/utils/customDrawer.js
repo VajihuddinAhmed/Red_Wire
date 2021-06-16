@@ -3,8 +3,12 @@ import {View, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {Colors, LogoText} from './tools';
+import {useDispatch} from 'react-redux';
+import {logoutUser} from '../store/actions';
 
 const SideDrawerCustom = props => {
+  const dispatch = useDispatch();
+
   const mainOptions = [
     {title: 'News', location: 'Home'},
     {title: 'Videos', location: 'Videos'},
@@ -27,7 +31,7 @@ const SideDrawerCustom = props => {
       ))}
       <Button
         title="Logout"
-        onPress={() => null}
+        onPress={() => dispatch(logoutUser())}
         buttonStyle={styles.drawerButton}
         titleStyle={styles.titleStyle}
       />
